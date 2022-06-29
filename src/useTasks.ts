@@ -15,14 +15,16 @@ export const tasksRepositry = () => {
 
 export const useTasks = (): [
   Item[],
-  (...newTask: Item[]) => void,
+  (newTask: Item, index: number) => void,
   (dragIndex: number, hoverIndex: number, groupName: string) => void
 ] => {
   const [tasks, setTasks] = useState<Item[]>();
 
-  const updateTasks = (...newTasks: Item[]) => {
+  const updateTasks = (newTask: Item, index: number) => {
     setTasks((prev) => {
-      return [...(prev ?? []), ...newTasks];
+      const newTasks = [...(prev ?? [])];
+      newTasks.splice(index, 0, newTask);
+      return newTasks;
     });
   };
 
