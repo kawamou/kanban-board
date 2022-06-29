@@ -22,7 +22,7 @@ export const useColumns = (): [
       type: ItemTypes.column,
       index: 0,
     };
-    setColumns([newColumn, ...(columns ?? [])]);
+    setColumns([...(columns ?? []), newColumn]);
   };
 
   const swapColumns = (indexI: number, indexJ: number) => {

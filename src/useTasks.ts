@@ -22,10 +22,9 @@ export const useTasks = (): [
   const [tasks, setTasks] = useState<Item[]>();
 
   const updateTasks = (...newTasks: Item[]) => {
-    newTasks.map((task) => {
-      task.key = uuidv4();
+    setTasks((prev) => {
+      return [...(prev ?? []), ...newTasks];
     });
-    setTasks([...newTasks, ...(tasks ?? [])]);
   };
 
   const findTasksByGroupName = (groupName: string) => {
@@ -35,21 +34,18 @@ export const useTasks = (): [
     });
   };
 
-  const swapTasks = (indexI: number, indexJ: number, groupName: string) => {
-    if (!tasks) return;
-    const item = tasks[indexI];
-    if (!item) return;
-    setTasks((prev) => {
-      const newItems = prev?.filter((_, idx) => idx !== indexI);
-      newItems?.splice(indexJ, 0, { ...item, groupName });
-      return newItems;
-    });
-    console.log(tasks);
-  };
-
+  // コールバックに入れないと最新の値を参照できない
+  // https://tyotto-good.com/blog/usestate-pitfalls
   const moveTasks = useCallback(
     (dragIndex: number, hoverIndex: number, groupName: string) => {
-      swapTasks(dragIndex, hoverIndex, groupName);
+      setTasks((prev) => {
+        if (!prev) return;
+        const item = prev[dragIndex];
+        if (!item) return;
+        const newItems = prev?.filter((_, idx) => idx !== dragIndex);
+        newItems?.splice(hoverIndex, 0, { ...item, groupName });
+        return newItems;
+      });
     },
     [tasks, setTasks]
   );
