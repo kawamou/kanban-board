@@ -6,8 +6,9 @@ import { v4 as uuidv4, v4 } from "uuid";
 // https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
 export const AddTask = (props: {
   displayNone: () => void;
-  hooks2: (arg: Item) => void;
+  hooks2: (arg: Item, index: number) => void;
   groupName: string;
+  index: number;
 }) => {
   const [text, setText] = useState("");
 
@@ -17,12 +18,15 @@ export const AddTask = (props: {
 
   const handleOnSubmit = () => {
     if (!text) return;
-    props.hooks2({
-      key: uuidv4(),
-      groupName: props.groupName,
-      note: text,
-      type: ItemTypes.card,
-    });
+    props.hooks2(
+      {
+        key: uuidv4(),
+        groupName: props.groupName,
+        note: text,
+        type: ItemTypes.card,
+      },
+      props.index
+    );
     setText("");
     props.displayNone();
   };

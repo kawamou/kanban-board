@@ -11,7 +11,7 @@ type ColumnProps = {
   item: Item;
   firstIndex: number;
   tasks: Item[];
-  updateTasks: (...newTask: Item[]) => void;
+  updateTasks: (newTask: Item, index: number) => void;
   move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
@@ -64,6 +64,7 @@ export const Column = (props: ColumnProps) => {
               displayNone={displayNone}
               hooks2={props.updateTasks}
               groupName={props.item.groupName}
+              index={props.firstIndex + props.tasks.length}
             />
           ) : (
             <></>
