@@ -56,7 +56,8 @@ export const Column = (props: ColumnProps) => {
           <DotsHorizontalIcon className="w-4 h-4 ml-2"></DotsHorizontalIcon>
         </button>
       </div>
-      <div className="overflow-y-auto h-5/6">
+      {/* refの位置が重要。ulだと存在しなかった */}
+      <div className="overflow-y-auto h-5/6" ref={ref}>
         <div className="ml-2 mr-2 mt-2 mb-4">
           {isOpen ? (
             <AddTask
