@@ -20,22 +20,22 @@ export const Column = (props: ColumnProps) => {
 
   const displayNone = (): void => setIsOpen(false);
 
-  // const [, ref] = useDrop({
-  //   accept: ItemTypes.card, // 渡せるようにする
-  //   hover(dragItem: ItemWithIndex) {
-  //     const dragIndex = dragItem.index;
-  //     if (dragItem.groupName === props.item.groupName) return;
-  //     const targetIndex =
-  //       dragIndex < props.firstIndex
-  //         ? // forward
-  //           props.firstIndex + props.tasks.length - 1
-  //         : // backward
-  //           props.firstIndex + props.tasks.length;
-  //     props.move(dragIndex, targetIndex, props.item.groupName);
-  //     dragItem.index = targetIndex;
-  //     dragItem.groupName = props.item.groupName;
-  //   },
-  // });
+  const [, ref] = useDrop({
+    accept: ItemTypes.card, // 渡せるようにする
+    hover(dragItem: ItemWithIndex) {
+      const dragIndex = dragItem.index;
+      if (dragItem.groupName === props.item.groupName) return;
+      const targetIndex =
+        dragIndex < props.firstIndex
+          ? // forward
+            props.firstIndex + props.tasks.length - 1
+          : // backward
+            props.firstIndex + props.tasks.length;
+      props.move(dragIndex, targetIndex, props.item.groupName);
+      dragItem.index = targetIndex;
+      dragItem.groupName = props.item.groupName;
+    },
+  });
 
   return (
     <div className="rounded p-2 h-[90%] bg-gray-100 border-x border-y boder-t border-b w-[335px]">
