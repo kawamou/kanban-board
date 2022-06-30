@@ -1,18 +1,6 @@
 import { Item } from "../item";
 import { useState, useCallback } from "react";
 
-export const tasksRepositry = () => {
-  const findByGroupId = (groupId: string) => {
-    return;
-  };
-
-  const save = (task: Item) => {
-    return;
-  };
-
-  return { findByGroupId, save };
-};
-
 export const useTasks = (): [
   Item[],
   (newTask: Item, index: number) => void,
@@ -26,13 +14,6 @@ export const useTasks = (): [
       const newTasks = [...(prev ?? [])];
       newTasks.splice(index, 0, newTask);
       return newTasks;
-    });
-  };
-
-  const findTasksByGroupName = (groupName: string) => {
-    if (!tasks) return [];
-    return tasks.filter((task) => {
-      return task.groupName === groupName;
     });
   };
 
