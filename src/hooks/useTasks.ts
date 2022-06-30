@@ -16,7 +16,8 @@ export const tasksRepositry = () => {
 export const useTasks = (): [
   Item[],
   (newTask: Item, index: number) => void,
-  (dragIndex: number, hoverIndex: number, groupName: string) => void
+  (dragIndex: number, hoverIndex: number, groupName: string) => void,
+  (groupNames: string[]) => void
 ] => {
   const [tasks, setTasks] = useState<Item[]>();
 
@@ -51,5 +52,19 @@ export const useTasks = (): [
     [tasks, setTasks]
   );
 
-  return [tasks ?? [], updateTasks, moveTasks];
+  const alignTasks = (groupNames: string[]) => {
+    setTasks((prev) => {
+      if (!prev) return;
+      const newTasks: Item[] = [];
+      groupNames.map((groupName) => {
+        const grouped = prev.filter((task) => {
+          return task.groupName == groupName;
+        });
+        newTasks.push(...grouped);
+      });
+      return newTasks;
+    });
+  };
+
+  return [tasks ?? [], updateTasks, moveTasks, alignTasks];
 };

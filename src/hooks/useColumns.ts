@@ -13,7 +13,7 @@ export const useColumns = (): [
   (dragIndex: number, hoverIndex: number, groupName: string) => void
 ] => {
   const [columns, setColumns] = useState<Item[]>();
-  const [tasks, updateTasks, moveTasks] = useTasks();
+  const [tasks, updateTasks, moveTasks, alignTasks] = useTasks();
 
   const updateColumns = useCallback(
     (name: string) => {
@@ -36,6 +36,11 @@ export const useColumns = (): [
         if (!prev) return;
         const newColumns = prev.filter((_, index) => index !== indexI);
         newColumns.splice(indexJ, 0, { ...prev[indexI] });
+        alignTasks(
+          newColumns.map((column) => {
+            return column.groupName;
+          })
+        );
         return [...newColumns];
       });
     },

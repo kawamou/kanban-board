@@ -16,7 +16,8 @@ export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
 };
 
 export const Columns = () => {
-  const [columns, updateColumns, swapColumns] = useColumns();
+  const [columns, updateColumns, swapColumns, tasks, updateTasks, moveTasks] =
+    useColumns();
 
   const [showModal, updateShowModal] = useShowModal();
 
@@ -32,7 +33,7 @@ export const Columns = () => {
   return (
     <div className="m-4 h-full">
       <div className="flex gap-4 h-full">
-        {columns.map((column) => {
+        {columns.map((column, columnIndex) => {
           const groupedTasks = tasks.filter((task) => {
             return task.groupName === column.groupName;
           });
@@ -40,15 +41,15 @@ export const Columns = () => {
           index = index + groupedTasks.length;
           return (
             <li key={column.key} className="list-none">
-              {/* <Draggable item={column} index={index} move={moveColumn}> */}
-              <Column
-                item={column}
-                firstIndex={firstIndex}
-                tasks={groupedTasks}
-                updateTasks={updateTasks}
-                move={moveTasks}
-              ></Column>
-              {/* </Draggable> */}
+              <Draggable item={column} index={columnIndex} move={moveColumn}>
+                <Column
+                  item={column}
+                  firstIndex={firstIndex}
+                  tasks={groupedTasks}
+                  updateTasks={updateTasks}
+                  move={moveTasks}
+                ></Column>
+              </Draggable>
             </li>
           );
         })}
