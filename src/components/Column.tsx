@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon, PlusIcon } from "@heroicons/react/outline";
-import { useCallback, useEffect, useState } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { useState } from "react";
+import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { AddTask } from "./AddTask";
 import { Item, ItemWithIndex } from "../item";

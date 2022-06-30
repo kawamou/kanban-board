@@ -1,12 +1,7 @@
 import { Column } from "./Column";
 import { NewColumnButton } from "./NewColumnButton";
 import { useState, useCallback } from "react";
-import { useTasks } from "../useTasks";
 import { AddAColumnModal } from "../pages/AddAColumnModal";
-import { ItemTypes } from "../itemTypes";
-import { Item } from "../item";
-import { v4 as uuidv4 } from "uuid";
-
 export const useColumns = (): [
   Item[],
   (name: string) => void,
@@ -37,6 +32,8 @@ export const useColumns = (): [
 
   return [columns ?? [], updateColumns, swapColumns];
 };
+import { Draggable } from "./Draggable";
+import { useColumns } from "../hooks/useColumns";
 
 export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
   const [showModal, setShowModal] = useState(false);
