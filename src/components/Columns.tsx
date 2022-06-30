@@ -2,36 +2,6 @@ import { Column } from "./Column";
 import { NewColumnButton } from "./NewColumnButton";
 import { useState, useCallback } from "react";
 import { AddAColumnModal } from "../pages/AddAColumnModal";
-export const useColumns = (): [
-  Item[],
-  (name: string) => void,
-  (indexI: number, indexJ: number) => void
-] => {
-  const [columns, setColumns] = useState<Item[]>();
-
-  const updateColumns = (name: string) => {
-    const newColumn = {
-      key: uuidv4(),
-      groupName: name,
-      note: "",
-      type: ItemTypes.column,
-      index: 0,
-    };
-    setColumns([...(columns ?? []), newColumn]);
-  };
-
-  const swapColumns = (indexI: number, indexJ: number) => {
-    if (!columns) return;
-    const updatedColumns = columns;
-    const newUpdatedColumns = updatedColumns.filter(
-      (_, index) => index !== indexI
-    );
-    newUpdatedColumns.splice(indexJ, 0, { ...columns[indexI] });
-    setColumns([...newUpdatedColumns]);
-  };
-
-  return [columns ?? [], updateColumns, swapColumns];
-};
 import { Draggable } from "./Draggable";
 import { useColumns } from "../hooks/useColumns";
 
@@ -45,19 +15,10 @@ export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
   return [showModal, updateShowModal];
 };
 
-export type Column = {
-  name: string;
-  index: number;
-  type: ItemTypes;
-  tasks: Item[];
-};
-
 export const Columns = () => {
   const [columns, updateColumns, swapColumns] = useColumns();
 
   const [showModal, updateShowModal] = useShowModal();
-
-  const [tasks, updateTasks, moveTasks] = useTasks();
 
   const moveColumn = useCallback(
     (dragIndex: number, hoverIndex: number) => {
