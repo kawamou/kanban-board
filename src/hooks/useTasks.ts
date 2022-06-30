@@ -1,4 +1,4 @@
-import { Item } from "./item";
+import { Item } from "../item";
 import { useState, useCallback } from "react";
 
 export const tasksRepositry = () => {
