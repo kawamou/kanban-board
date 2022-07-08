@@ -14,7 +14,7 @@ export const useColumns = (): [
   (target: Item) => void
 ] => {
   const [columns, setColumns] = useState<Item[]>();
-  const [tasks, updateTasks, moveTasks, alignTasks, deleteTasks] = useTasks();
+  const [tasks, updateTasks, swapTasks, alignTasks, deleteTasks] = useTasks();
 
   const updateColumns = useCallback(
     (name: string) => {
@@ -54,7 +54,7 @@ export const useColumns = (): [
     swapColumns,
     tasks ?? [],
     updateTasks,
-    moveTasks,
+    swapTasks,
     deleteTasks,
   ];
 };

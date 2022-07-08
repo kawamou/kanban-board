@@ -20,7 +20,7 @@ export const useTasks = (): [
 
   // コールバックに入れないと最新の値を参照できない
   // https://tyotto-good.com/blog/usestate-pitfalls
-  const moveTasks = useCallback(
+  const swapTasks = useCallback(
     (dragIndex: number, hoverIndex: number, groupName: string) => {
       setTasks((prev) => {
         if (!prev) return;
@@ -61,5 +61,5 @@ export const useTasks = (): [
     });
   };
 
-  return [tasks ?? [], updateTasks, moveTasks, alignTasks, deleteTasks];
+  return [tasks ?? [], updateTasks, swapTasks, alignTasks, deleteTasks];
 };

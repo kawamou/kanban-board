@@ -8,14 +8,14 @@ export const ItemType = ["item" as const];
 type Props = {
   item: Item;
   index: number;
-  move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
+  swapItems: (dragIndex: number, hoverIndex: number, groupName: string) => void;
   children: React.ReactNode;
 };
 
 export const Draggable: FC<Props> = ({
   item: item,
   index,
-  move: move,
+  swapItems: swapItems,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +43,7 @@ export const Draggable: FC<Props> = ({
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY * 1.5) return;
       }
 
-      move(dragIndex, hoverIndex, item.groupName);
+      swapItems(dragIndex, hoverIndex, item.groupName);
 
       dragItem.index = hoverIndex;
       dragItem.groupName = item.groupName;

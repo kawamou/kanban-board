@@ -13,7 +13,7 @@ type ColumnProps = {
   tasks: Item[];
   updateTasks: (newTask: Item, index: number) => void;
   deleteTasks: (target: Item) => void;
-  move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
+  swapTasks: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
 export const Column = (props: ColumnProps) => {
@@ -32,7 +32,7 @@ export const Column = (props: ColumnProps) => {
             props.firstIndex + props.tasks.length - 1
           : // backward
             props.firstIndex + props.tasks.length;
-      props.move(dragIndex, targetIndex, props.item.groupName);
+      props.swapTasks(dragIndex, targetIndex, props.item.groupName);
       dragItem.index = targetIndex;
       dragItem.groupName = props.item.groupName;
     },
@@ -78,7 +78,7 @@ export const Column = (props: ColumnProps) => {
                 <Draggable
                   item={task}
                   index={props.firstIndex + index}
-                  move={props.move}
+                  swapItems={props.swapTasks}
                 >
                   <Card
                     task={task}

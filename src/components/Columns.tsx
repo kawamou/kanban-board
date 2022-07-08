@@ -22,18 +22,11 @@ export const Columns = () => {
     swapColumns,
     tasks,
     updateTasks,
-    moveTasks,
+    swapTasks,
     deleteTasks,
   ] = useColumns();
 
   const [showModal, updateShowModal] = useShowModal();
-
-  const moveColumn = useCallback(
-    (dragIndex: number, hoverIndex: number) => {
-      swapColumns(dragIndex, hoverIndex);
-    },
-    [columns]
-  );
 
   let index = 0;
 
@@ -48,14 +41,18 @@ export const Columns = () => {
           index = index + groupedTasks.length;
           return (
             <li key={column.key} className="list-none">
-              <Draggable item={column} index={columnIndex} move={moveColumn}>
+              <Draggable
+                item={column}
+                index={columnIndex}
+                swapItems={swapColumns}
+              >
                 <Column
                   item={column}
                   firstIndex={firstIndex}
                   tasks={groupedTasks}
                   updateTasks={updateTasks}
                   deleteTasks={deleteTasks}
-                  move={moveTasks}
+                  swapTasks={swapTasks}
                 ></Column>
               </Draggable>
             </li>
