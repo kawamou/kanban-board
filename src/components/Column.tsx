@@ -87,11 +87,7 @@ export const Column = ({
                   index={firstIndex + index}
                   swapItems={swapTasks}
                 >
-                  <Card
-                    task={task}
-                    index={index}
-                    deleteTasks={deleteTasks}
-                  ></Card>
+                  <Card task={task} deleteTasks={deleteTasks}></Card>
                 </Draggable>
               </li>
             );

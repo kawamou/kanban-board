@@ -5,15 +5,10 @@ import { MenuAlt2Icon } from "@heroicons/react/outline";
 
 type CardProps = {
   task: Item;
-  index: number;
   deleteTasks: (target: Item) => void;
 };
 
-export const Card: FC<CardProps> = ({
-  task,
-  index,
-  deleteTasks,
-}: CardProps) => {
+export const Card: FC<CardProps> = ({ task, deleteTasks }: CardProps) => {
   const [show, setShow] = useState<boolean>(false);
 
   return (
