@@ -10,10 +10,11 @@ export const useColumns = (): [
   (indexI: number, indexJ: number) => void,
   Item[],
   (newTask: Item, index: number) => void,
-  (dragIndex: number, hoverIndex: number, groupName: string) => void
+  (dragIndex: number, hoverIndex: number, groupName: string) => void,
+  (target: Item) => void
 ] => {
   const [columns, setColumns] = useState<Item[]>();
-  const [tasks, updateTasks, moveTasks, alignTasks] = useTasks();
+  const [tasks, updateTasks, moveTasks, alignTasks, deleteTasks] = useTasks();
 
   const updateColumns = useCallback(
     (name: string) => {
@@ -54,5 +55,6 @@ export const useColumns = (): [
     tasks ?? [],
     updateTasks,
     moveTasks,
+    deleteTasks,
   ];
 };

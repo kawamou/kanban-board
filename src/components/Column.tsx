@@ -1,5 +1,5 @@
 import { DotsHorizontalIcon, PlusIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { AddTask } from "./AddTask";
@@ -12,6 +12,7 @@ type ColumnProps = {
   firstIndex: number;
   tasks: Item[];
   updateTasks: (newTask: Item, index: number) => void;
+  deleteTasks: (target: Item) => void;
   move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
@@ -62,7 +63,7 @@ export const Column = (props: ColumnProps) => {
           {isOpen ? (
             <AddTask
               displayNone={displayNone}
-              hooks2={props.updateTasks}
+              updateTasks={props.updateTasks}
               groupName={props.item.groupName}
               index={props.firstIndex + props.tasks.length}
             />
@@ -79,7 +80,11 @@ export const Column = (props: ColumnProps) => {
                   index={props.firstIndex + index}
                   move={props.move}
                 >
-                  <Card task={task} index={index}></Card>
+                  <Card
+                    task={task}
+                    index={index}
+                    delete={props.deleteTasks}
+                  ></Card>
                 </Draggable>
               </li>
             );

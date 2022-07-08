@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Item } from "../item";
 import { ItemTypes } from "../itemTypes";
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 // https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
 export const AddTask = (props: {
   displayNone: () => void;
-  hooks2: (arg: Item, index: number) => void;
+  updateTasks: (arg: Item, index: number) => void;
   groupName: string;
   index: number;
 }) => {
@@ -18,7 +18,7 @@ export const AddTask = (props: {
 
   const handleOnSubmit = () => {
     if (!text) return;
-    props.hooks2(
+    props.updateTasks(
       {
         key: uuidv4(),
         groupName: props.groupName,

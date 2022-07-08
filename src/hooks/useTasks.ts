@@ -5,7 +5,8 @@ export const useTasks = (): [
   Item[],
   (newTask: Item, index: number) => void,
   (dragIndex: number, hoverIndex: number, groupName: string) => void,
-  (groupNames: string[]) => void
+  (groupNames: string[]) => void,
+  (target: Item) => void
 ] => {
   const [tasks, setTasks] = useState<Item[]>();
 
@@ -33,6 +34,19 @@ export const useTasks = (): [
     [tasks, setTasks]
   );
 
+  const deleteTasks = useCallback(
+    (target: Item) => {
+      setTasks((prev) => {
+        if (!prev) return;
+        const items = prev.filter((item) => {
+          return item != target;
+        });
+        return items;
+      });
+    },
+    [tasks, setTasks]
+  );
+
   const alignTasks = (groupNames: string[]) => {
     setTasks((prev) => {
       if (!prev) return;
@@ -47,5 +61,5 @@ export const useTasks = (): [
     });
   };
 
-  return [tasks ?? [], updateTasks, moveTasks, alignTasks];
+  return [tasks ?? [], updateTasks, moveTasks, alignTasks, deleteTasks];
 };

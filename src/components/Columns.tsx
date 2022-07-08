@@ -16,8 +16,15 @@ export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
 };
 
 export const Columns = () => {
-  const [columns, updateColumns, swapColumns, tasks, updateTasks, moveTasks] =
-    useColumns();
+  const [
+    columns,
+    updateColumns,
+    swapColumns,
+    tasks,
+    updateTasks,
+    moveTasks,
+    deleteTasks,
+  ] = useColumns();
 
   const [showModal, updateShowModal] = useShowModal();
 
@@ -47,6 +54,7 @@ export const Columns = () => {
                   firstIndex={firstIndex}
                   tasks={groupedTasks}
                   updateTasks={updateTasks}
+                  deleteTasks={deleteTasks}
                   move={moveTasks}
                 ></Column>
               </Draggable>
