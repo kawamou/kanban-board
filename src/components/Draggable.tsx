@@ -5,14 +5,14 @@ import { useRef } from "react";
 
 export const ItemType = ["item" as const];
 
-type Props = {
+type DraggableProps = {
   item: Item;
   index: number;
   swapItems: (dragIndex: number, hoverIndex: number, groupName: string) => void;
   children: React.ReactNode;
 };
 
-export const Draggable: FC<Props> = ({
+export const Draggable: FC<DraggableProps> = ({
   item: item,
   index,
   swapItems: swapItems,

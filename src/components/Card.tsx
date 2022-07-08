@@ -6,17 +6,22 @@ import { MenuAlt2Icon } from "@heroicons/react/outline";
 type CardProps = {
   task: Item;
   index: number;
-  delete: (target: Item) => void;
+  deleteTasks: (target: Item) => void;
 };
 
-export const Card: FC<CardProps> = (props: CardProps) => {
+export const Card: FC<CardProps> = ({
+  task,
+  index,
+  deleteTasks,
+}: CardProps) => {
   const [show, setShow] = useState<boolean>(false);
 
   return (
     <>
       <div className="cursor-move flex items-start content-start rounded-md border-x border-y boder-t border-b bg-white p-4">
         <MenuAlt2Icon className="w-4 h-4" />
-        <div className="flex-1 text-sm pl-4 pr-4">{props.task.note}</div>
+        <div className="flex-1 text-sm pl-4 pr-4">{task.note}</div>
+
         <button
           className=""
           onClick={() => {
@@ -39,7 +44,7 @@ export const Card: FC<CardProps> = (props: CardProps) => {
                 <li className="hover:bg-gray-100 pt-1 pb-1 pl-4 pr-4">
                   <div
                     onClick={() => {
-                      props.delete(props.task);
+                      deleteTasks(task);
                     }}
                   >
                     Delete

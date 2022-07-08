@@ -3,13 +3,20 @@ import { Item } from "../item";
 import { ItemTypes } from "../itemTypes";
 import { v4 as uuidv4 } from "uuid";
 
-// https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
-export const AddTask = (props: {
+type AddTaskProps = {
   displayNone: () => void;
   updateTasks: (arg: Item, index: number) => void;
   groupName: string;
   index: number;
-}) => {
+};
+
+// https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
+export const AddTask = ({
+  displayNone,
+  updateTasks,
+  groupName,
+  index,
+}: AddTaskProps) => {
   const [text, setText] = useState("");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,17 +25,17 @@ export const AddTask = (props: {
 
   const handleOnSubmit = () => {
     if (!text) return;
-    props.updateTasks(
+    updateTasks(
       {
         key: uuidv4(),
-        groupName: props.groupName,
+        groupName: groupName,
         note: text,
         type: ItemTypes.card,
       },
-      props.index
+      index
     );
     setText("");
-    props.displayNone();
+    displayNone();
   };
 
   return (
@@ -54,7 +61,7 @@ export const AddTask = (props: {
             className="border-1 text-sm flex-1 bg-gray-200 py-1 px-4 rounded"
             onClick={() => {
               setText("");
-              props.displayNone();
+              displayNone();
             }}
           >
             Cancel

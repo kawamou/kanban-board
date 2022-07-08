@@ -4,12 +4,12 @@ type NewColumnButtonProps = {
   updateShowModal: (showModal: boolean) => void;
 };
 
-export const NewColumnButton = (props: NewColumnButtonProps) => {
+export const NewColumnButton = ({ updateShowModal }: NewColumnButtonProps) => {
   return (
     <button
       className="border-dashed border-x border-y boder-t border-b w-[335px] h-[103px] hover:underline"
       onClick={() => {
-        props.updateShowModal(true);
+        updateShowModal(true);
       }}
     >
       <div className="flex items-center justify-center">

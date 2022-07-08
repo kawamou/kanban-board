@@ -16,7 +16,14 @@ type ColumnProps = {
   swapTasks: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
-export const Column = (props: ColumnProps) => {
+export const Column = ({
+  item,
+  firstIndex,
+  tasks,
+  updateTasks,
+  deleteTasks,
+  swapTasks,
+}: ColumnProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const displayNone = (): void => setIsOpen(false);
@@ -25,16 +32,16 @@ export const Column = (props: ColumnProps) => {
     accept: ItemTypes.card, // 渡せるようにする
     hover(dragItem: ItemWithIndex) {
       const dragIndex = dragItem.index;
-      if (dragItem.groupName === props.item.groupName) return;
+      if (dragItem.groupName === item.groupName) return;
       const targetIndex =
-        dragIndex < props.firstIndex
+        dragIndex < firstIndex
           ? // forward
-            props.firstIndex + props.tasks.length - 1
+            firstIndex + tasks.length - 1
           : // backward
-            props.firstIndex + props.tasks.length;
-      props.swapTasks(dragIndex, targetIndex, props.item.groupName);
+            firstIndex + tasks.length;
+      swapTasks(dragIndex, targetIndex, item.groupName);
       dragItem.index = targetIndex;
-      dragItem.groupName = props.item.groupName;
+      dragItem.groupName = item.groupName;
     },
   });
 
@@ -42,9 +49,9 @@ export const Column = (props: ColumnProps) => {
     <div className="rounded p-2 h-[90%] bg-gray-100 border-x border-y boder-t border-b w-[335px]">
       <div className="flex items-center m-2">
         <div className="rounded-full w-6 h-6 text-center bg-slate-200">
-          {props.tasks.length}
+          {tasks.length}
         </div>
-        <span className="flex-1 ml-2">{props.item.groupName}</span>
+        <span className="flex-1 ml-2">{item.groupName}</span>
         <button
           className=""
           onClick={() => {
@@ -63,27 +70,27 @@ export const Column = (props: ColumnProps) => {
           {isOpen ? (
             <AddTask
               displayNone={displayNone}
-              updateTasks={props.updateTasks}
-              groupName={props.item.groupName}
-              index={props.firstIndex + props.tasks.length}
+              updateTasks={updateTasks}
+              groupName={item.groupName}
+              index={firstIndex + tasks.length}
             />
           ) : (
             <></>
           )}
         </div>
         <ul className="">
-          {props.tasks?.map((task, index) => {
+          {tasks?.map((task, index) => {
             return (
               <li key={task.key} className="m-2">
                 <Draggable
                   item={task}
-                  index={props.firstIndex + index}
-                  swapItems={props.swapTasks}
+                  index={firstIndex + index}
+                  swapItems={swapTasks}
                 >
                   <Card
                     task={task}
                     index={index}
-                    delete={props.deleteTasks}
+                    deleteTasks={deleteTasks}
                   ></Card>
                 </Draggable>
               </li>
