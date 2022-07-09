@@ -16,14 +16,14 @@ type ColumnProps = {
   swapTasks: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
-export const Column = ({
+export const Column: React.FC<ColumnProps> = ({
   item,
   firstIndex,
   tasks,
   updateTasks,
   deleteTasks,
   swapTasks,
-}: ColumnProps) => {
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const displayNone = (): void => setIsOpen(false);

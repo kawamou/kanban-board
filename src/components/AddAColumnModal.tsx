@@ -7,11 +7,11 @@ export type AddAColumnModalProps = {
   updateNewColumnName: (name: string) => void;
 };
 
-export const AddAColumnModal = ({
+export const AddAColumnModal: React.FC<AddAColumnModalProps> = ({
   showModal,
   updateShowModal,
   updateNewColumnName,
-}: AddAColumnModalProps) => {
+}) => {
   const [text, setText] = useState("");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -11,12 +11,12 @@ type AddTaskProps = {
 };
 
 // https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
-export const AddTask = ({
+export const AddTask: React.FC<AddTaskProps> = ({
   displayNone,
   updateTasks,
   groupName,
   index,
-}: AddTaskProps) => {
+}) => {
   const [text, setText] = useState("");
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

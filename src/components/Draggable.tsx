@@ -13,9 +13,9 @@ type DraggableProps = {
 };
 
 export const Draggable: FC<DraggableProps> = ({
-  item: item,
+  item,
   index,
-  swapItems: swapItems,
+  swapItems,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);

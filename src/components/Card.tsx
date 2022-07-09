@@ -8,7 +8,7 @@ type CardProps = {
   deleteTasks: (target: Item) => void;
 };
 
-export const Card: FC<CardProps> = ({ task, deleteTasks }: CardProps) => {
+export const Card: FC<CardProps> = ({ task, deleteTasks }) => {
   const [show, setShow] = useState<boolean>(false);
 
   return (

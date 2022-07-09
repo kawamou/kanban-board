@@ -4,7 +4,9 @@ type NewColumnButtonProps = {
   updateShowModal: (showModal: boolean) => void;
 };
 
-export const NewColumnButton = ({ updateShowModal }: NewColumnButtonProps) => {
+export const NewColumnButton: React.FC<NewColumnButtonProps> = ({
+  updateShowModal,
+}) => {
   return (
     <button
       className="border-dashed border-x border-y boder-t border-b w-[335px] h-[103px] hover:underline"
