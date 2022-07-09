@@ -18,14 +18,14 @@ export const useColumns = (): [
 
   const updateColumns = useCallback(
     (name: string) => {
-      setColumns((prev) => {
+      setColumns((current) => {
         const newColumn = {
           key: uuidv4(),
           groupName: name,
           note: "",
           type: ItemTypes.column,
         };
-        return [...(prev ?? []), newColumn];
+        return [...(current ?? []), newColumn];
       });
     },
     [columns, setColumns]
@@ -33,10 +33,10 @@ export const useColumns = (): [
 
   const swapColumns = useCallback(
     (indexI: number, indexJ: number) => {
-      setColumns((prev) => {
-        if (!prev) return;
-        const newColumns = prev.filter((_, index) => index !== indexI);
-        newColumns.splice(indexJ, 0, { ...prev[indexI] });
+      setColumns((current) => {
+        if (!current) return;
+        const newColumns = current.filter((_, index) => index !== indexI);
+        newColumns.splice(indexJ, 0, { ...current[indexI] });
         alignTasks(
           newColumns.map((column) => {
             return column.groupName;
