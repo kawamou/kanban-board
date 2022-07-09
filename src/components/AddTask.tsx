@@ -29,7 +29,7 @@ export const AddTask: React.FC<AddTaskProps> = ({
       {
         key: uuidv4(),
         groupName: groupName,
-        note: text,
+        contents: text,
         type: ItemTypes.card,
       },
       index

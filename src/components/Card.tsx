@@ -15,7 +15,7 @@ export const Card: FC<CardProps> = ({ task, deleteTasks }) => {
     <>
       <div className="cursor-move flex items-start content-start rounded-md border-x border-y boder-t border-b bg-white p-4">
         <MenuAlt2Icon className="w-4 h-4" />
-        <div className="flex-1 text-sm pl-4 pr-4">{task.note}</div>
+        <div className="flex-1 text-sm pl-4 pr-4">{task.contents}</div>
 
         <button
           className=""

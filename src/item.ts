@@ -3,7 +3,7 @@ import { ItemTypes } from "./itemTypes";
 export type Item = {
   key: string;
   groupName: string;
-  note: string;
+  contents: string;
   type: ItemTypes;
 };
 

@@ -22,7 +22,7 @@ export const useColumns = (): [
         const newColumn = {
           key: uuidv4(),
           groupName: name,
-          note: "",
+          contents: "",
           type: ItemTypes.column,
         };
         return [...(current ?? []), newColumn];
