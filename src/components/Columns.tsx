@@ -1,6 +1,6 @@
 import { Column } from "./Column";
 import { NewColumnButton } from "./NewColumnButton";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { AddAColumnModal } from "../pages/AddAColumnModal";
 import { Draggable } from "./Draggable";
 import { useColumns } from "../hooks/useColumns";

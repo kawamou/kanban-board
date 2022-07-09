@@ -1,5 +1,5 @@
 import { DotsHorizontalIcon, PlusIcon } from "@heroicons/react/outline";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { AddTask } from "./AddTask";
