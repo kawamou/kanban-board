@@ -17,7 +17,7 @@ type ColumnProps = {
 };
 
 export const Column: React.FC<ColumnProps> = ({
-  item,
+  columnName,
   firstIndex,
   tasks,
   updateTasks,
@@ -32,16 +32,16 @@ export const Column: React.FC<ColumnProps> = ({
     accept: ItemTypes.card, // 渡せるようにする
     hover(dragItem: DraggableItemWithIndex) {
       const dragIndex = dragItem.index;
-      if (dragItem.groupName === item.groupName) return;
+      if (dragItem.groupName === columnName) return;
       const targetIndex =
         dragIndex < firstIndex
           ? // forward
             firstIndex + tasks.length - 1
           : // backward
             firstIndex + tasks.length;
-      swapTasks(dragIndex, targetIndex, item.groupName);
+      swapTasks(dragIndex, targetIndex, columnName);
       dragItem.index = targetIndex;
-      dragItem.groupName = item.groupName;
+      dragItem.groupName = columnName;
     },
   });
 
@@ -51,7 +51,7 @@ export const Column: React.FC<ColumnProps> = ({
         <div className="rounded-full w-6 h-6 text-center bg-slate-200">
           {tasks.length}
         </div>
-        <span className="flex-1 ml-2">{item.groupName}</span>
+        <span className="flex-1 ml-2">{columnName}</span>
         <button
           className=""
           onClick={() => {
@@ -70,7 +70,7 @@ export const Column: React.FC<ColumnProps> = ({
             <AddTask
               displayNone={displayNone}
               updateTasks={updateTasks}
-              groupName={item.groupName}
+              groupName={columnName}
               index={firstIndex + tasks.length}
             />
           ) : (

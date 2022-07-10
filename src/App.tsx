@@ -54,7 +54,7 @@ const App = () => {
                       swapItems={swapColumns}
                     >
                       <Column
-                        item={column}
+                        columnName={column.groupName}
                         firstIndex={firstIndex}
                         tasks={groupedTasks}
                         updateTasks={updateTasks}
