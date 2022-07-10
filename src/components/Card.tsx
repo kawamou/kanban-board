@@ -1,11 +1,11 @@
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { FC, useState } from "react";
-import { Item } from "../item";
+import { DraggableItem } from "../item";
 import { MenuAlt2Icon } from "@heroicons/react/outline";
 
 type CardProps = {
-  task: Item;
-  deleteTasks: (target: Item) => void;
+  task: DraggableItem;
+  deleteTasks: (target: DraggableItem) => void;
 };
 
 export const Card: FC<CardProps> = ({ task, deleteTasks }) => {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Item } from "../item";
+import { DraggableItem } from "../item";
 import { ItemTypes } from "../itemTypes";
 import { v4 as uuidv4 } from "uuid";
 
 type AddTaskProps = {
   displayNone: () => void;
-  updateTasks: (arg: Item, index: number) => void;
+  updateTasks: (arg: DraggableItem, index: number) => void;
   groupName: string;
   index: number;
 };

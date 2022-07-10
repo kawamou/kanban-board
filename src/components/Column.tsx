@@ -3,16 +3,16 @@ import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { AddTask } from "./AddTask";
-import { Item, ItemWithIndex } from "../item";
+import { DraggableItem, DraggableItemWithIndex } from "../item";
 import { Draggable } from "./Draggable";
 import { ItemTypes } from "../itemTypes";
 
 type ColumnProps = {
-  item: Item;
+  columnName: string;
   firstIndex: number;
-  tasks: Item[];
-  updateTasks: (newTask: Item, index: number) => void;
-  deleteTasks: (target: Item) => void;
+  tasks: DraggableItem[];
+  updateTasks: (newTask: DraggableItem, index: number) => void;
+  deleteTasks: (target: DraggableItem) => void;
   swapTasks: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
@@ -30,7 +30,7 @@ export const Column: React.FC<ColumnProps> = ({
 
   const [, ref] = useDrop({
     accept: ItemTypes.card, // 渡せるようにする
-    hover(dragItem: ItemWithIndex) {
+    hover(dragItem: DraggableItemWithIndex) {
       const dragIndex = dragItem.index;
       if (dragItem.groupName === item.groupName) return;
       const targetIndex =

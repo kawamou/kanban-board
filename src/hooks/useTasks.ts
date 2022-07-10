@@ -1,16 +1,16 @@
-import { Item } from "../item";
+import { DraggableItem } from "../item";
 import { useState, useCallback } from "react";
 
 export const useTasks = (): [
-  Item[],
-  (newTask: Item, index: number) => void,
+  DraggableItem[],
+  (newTask: DraggableItem, index: number) => void,
   (dragIndex: number, hoverIndex: number, groupName: string) => void,
   (groupNames: string[]) => void,
-  (target: Item) => void
+  (target: DraggableItem) => void
 ] => {
-  const [tasks, setTasks] = useState<Item[]>();
+  const [tasks, setTasks] = useState<DraggableItem[]>();
 
-  const updateTasks = (newTask: Item, index: number) => {
+  const updateTasks = (newTask: DraggableItem, index: number) => {
     setTasks((current) => {
       const newTasks = [...(current ?? [])];
       newTasks.splice(index, 0, newTask);
@@ -33,7 +33,7 @@ export const useTasks = (): [
   );
 
   const deleteTasks = useCallback(
-    (target: Item) => {
+    (target: DraggableItem) => {
       setTasks((current) => {
         if (!current) return;
         const items = current.filter((item) => {
@@ -48,7 +48,7 @@ export const useTasks = (): [
   const alignTasks = (groupNames: string[]) => {
     setTasks((current) => {
       if (!current) return;
-      const newTasks: Item[] = [];
+      const newTasks: DraggableItem[] = [];
       groupNames.map((groupName) => {
         const grouped = current.filter((task) => {
           return task.groupName == groupName;

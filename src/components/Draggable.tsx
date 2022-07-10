@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Item, ItemWithIndex } from "../item";
+import { DraggableItem, DraggableItemWithIndex } from "../item";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 
 export const ItemType = ["item" as const];
 
 type DraggableProps = {
-  item: Item;
+  item: DraggableItem;
   index: number;
   swapItems: (dragIndex: number, hoverIndex: number, groupName: string) => void;
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export const Draggable: FC<DraggableProps> = ({
 
   const [, drop] = useDrop({
     accept: item.type,
-    hover(dragItem: ItemWithIndex, monitor) {
+    hover(dragItem: DraggableItemWithIndex, monitor) {
       if (!ref.current) return;
 
       const dragIndex = dragItem.index;
