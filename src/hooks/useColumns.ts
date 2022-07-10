@@ -1,19 +1,19 @@
 import { useCallback, useState } from "react";
 import { ItemTypes } from "../itemTypes";
-import { Item } from "../item";
+import { DraggableItem } from "../item";
 import { v4 as uuidv4 } from "uuid";
 import { useTasks } from "../hooks/useTasks";
 
 export const useColumns = (): [
-  Item[],
+  DraggableItem[],
   (name: string) => void,
   (indexI: number, indexJ: number) => void,
-  Item[],
-  (newTask: Item, index: number) => void,
+  DraggableItem[],
+  (newTask: DraggableItem, index: number) => void,
   (dragIndex: number, hoverIndex: number, groupName: string) => void,
-  (target: Item) => void
+  (target: DraggableItem) => void
 ] => {
-  const [columns, setColumns] = useState<Item[]>();
+  const [columns, setColumns] = useState<DraggableItem[]>();
   const [tasks, updateTasks, swapTasks, alignTasks, deleteTasks] = useTasks();
 
   const updateColumns = useCallback(
