@@ -2,9 +2,9 @@ import { useCallback, useState } from "react";
 import { ItemTypes } from "../itemTypes";
 import { DraggableItem } from "../item";
 import { v4 as uuidv4 } from "uuid";
-import { useTasks } from "../hooks/useTasks";
+import { useTasks } from "./useTasks";
 
-export const useColumns = (): [
+export const useTaskGroups = (): [
   DraggableItem[],
   (name: string) => void,
   (indexI: number, indexJ: number) => void,
@@ -13,45 +13,45 @@ export const useColumns = (): [
   (dragIndex: number, hoverIndex: number, groupName: string) => void,
   (target: DraggableItem) => void
 ] => {
-  const [columns, setColumns] = useState<DraggableItem[]>();
+  const [taskGroups, setTaskGroups] = useState<DraggableItem[]>();
   const [tasks, updateTasks, swapTasks, alignTasks, deleteTasks] = useTasks();
 
-  const updateColumns = useCallback(
+  const updateTaskGroups = useCallback(
     (name: string) => {
-      setColumns((current) => {
-        const newColumn = {
+      setTaskGroups((current) => {
+        const newTaskGroups = {
           key: uuidv4(),
           groupName: name,
           contents: "",
           type: ItemTypes.column,
         };
-        return [...(current ?? []), newColumn];
+        return [...(current ?? []), newTaskGroups];
       });
     },
-    [columns, setColumns]
+    [taskGroups, setTaskGroups]
   );
 
-  const swapColumns = useCallback(
+  const swapTaskGroups = useCallback(
     (indexI: number, indexJ: number) => {
-      setColumns((current) => {
+      setTaskGroups((current) => {
         if (!current) return;
-        const newColumns = current.filter((_, index) => index !== indexI);
-        newColumns.splice(indexJ, 0, { ...current[indexI] });
+        const newTaskGroups = current.filter((_, index) => index !== indexI);
+        newTaskGroups.splice(indexJ, 0, { ...current[indexI] });
         alignTasks(
-          newColumns.map((column) => {
-            return column.groupName;
+          newTaskGroups.map((taskGroups) => {
+            return taskGroups.groupName;
           })
         );
-        return [...newColumns];
+        return [...newTaskGroups];
       });
     },
-    [columns, setColumns]
+    [taskGroups, setTaskGroups]
   );
 
   return [
-    columns ?? [],
-    updateColumns,
-    swapColumns,
+    taskGroups ?? [],
+    updateTaskGroups,
+    swapTaskGroups,
     tasks ?? [],
     updateTasks,
     swapTasks,

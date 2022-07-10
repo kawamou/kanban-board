@@ -6,7 +6,7 @@ import { NewColumnButton } from "./components/NewColumnButton";
 import { useState } from "react";
 import { AddAColumnModal } from "./components/AddAColumnModal";
 import { Draggable } from "./components/Draggable";
-import { useColumns } from "./hooks/useColumns";
+import { useTaskGroups } from "./hooks/useTaskGroups";
 
 export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
   const [showModal, setShowModal] = useState(false);
@@ -20,14 +20,14 @@ export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
 
 const App = () => {
   const [
-    columns,
+    taskGroups,
     updateColumns,
     swapColumns,
     tasks,
     updateTasks,
     swapTasks,
     deleteTasks,
-  ] = useColumns();
+  ] = useTaskGroups();
 
   const [showModal, updateShowModal] = useShowModal();
 
@@ -40,7 +40,7 @@ const App = () => {
         <div className="mt-8 h-full">
           <div className="m-4 h-full">
             <div className="flex gap-4 h-full">
-              {columns.map((column, columnIndex) => {
+              {taskGroups.map((column, columnIndex) => {
                 const groupedTasks = tasks.filter((task) => {
                   return task.groupName === column.groupName;
                 });
