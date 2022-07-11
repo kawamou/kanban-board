@@ -21,8 +21,8 @@ export const useShowModal = (): [boolean, (showModal: boolean) => void] => {
 const App = () => {
   const [
     taskGroups,
-    updateColumns,
-    swapColumns,
+    updateTaskGroups,
+    swapTaskGroups,
     tasks,
     updateTasks,
     swapTasks,
@@ -39,22 +39,22 @@ const App = () => {
         <AppBar />
         <div className="mt-8 h-full">
           <div className="m-4 h-full">
-            <div className="flex gap-4 h-full">
-              {taskGroups.map((column, columnIndex) => {
+            <div className="flex h-full gap-4">
+              {taskGroups.map((taskGroup, columnIndex) => {
                 const groupedTasks = tasks.filter((task) => {
-                  return task.groupName === column.groupName;
+                  return task.groupName === taskGroup.groupName;
                 });
                 const firstIndex = index;
                 index = index + groupedTasks.length;
                 return (
-                  <li key={column.key} className="list-none">
+                  <li key={taskGroup.key} className="list-none">
                     <Draggable
-                      item={column}
+                      item={taskGroup}
                       index={columnIndex}
-                      swapItems={swapColumns}
+                      swapItems={swapTaskGroups}
                     >
                       <Column
-                        columnName={column.groupName}
+                        columnName={taskGroup.groupName}
                         firstIndex={firstIndex}
                         tasks={groupedTasks}
                         updateTasks={updateTasks}
@@ -71,7 +71,7 @@ const App = () => {
               <AddAColumnModal
                 showModal={showModal}
                 updateShowModal={updateShowModal}
-                updateNewColumnName={updateColumns}
+                updateNewColumnName={updateTaskGroups}
               ></AddAColumnModal>
             </div>
           </div>

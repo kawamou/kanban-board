@@ -46,26 +46,26 @@ export const Column: React.FC<ColumnProps> = ({
   });
 
   return (
-    <div className="rounded p-2 h-[90%] bg-gray-100 border-x border-y boder-t border-b w-[335px]">
-      <div className="flex items-center m-2">
-        <div className="rounded-full w-6 h-6 text-center bg-slate-200">
+    <div className="h-[90%] w-[335px] rounded border bg-gray-100 p-2">
+      <div className="m-2 flex items-center">
+        <div className="h-6 w-6 rounded-full bg-slate-200 text-center">
           {tasks.length}
         </div>
-        <span className="flex-1 ml-2">{columnName}</span>
+        <span className="ml-2 flex-1">{columnName}</span>
         <button
           className=""
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         >
-          <PlusIcon className="w-4 h-4"></PlusIcon>
+          <PlusIcon className="h-4 w-4"></PlusIcon>
         </button>
         <button className="">
-          <DotsHorizontalIcon className="w-4 h-4 ml-2"></DotsHorizontalIcon>
+          <DotsHorizontalIcon className="ml-2 h-4 w-4"></DotsHorizontalIcon>
         </button>
       </div>
-      <div className="overflow-y-auto h-5/6" ref={ref}>
-        <div className="ml-2 mr-2 mt-2 mb-4">
+      <div className="h-5/6 overflow-y-auto" ref={ref}>
+        <div className="mx-2 mt-2 mb-4">
           {isOpen ? (
             <AddTask
               displayNone={displayNone}

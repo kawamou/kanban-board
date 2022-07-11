@@ -38,20 +38,20 @@ export const AddAColumnModal: React.FC<AddAColumnModalProps> = ({
     <>
       {showModal ? (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black/70 items-center content-center flex text-sm"
+          className="fixed top-0 left-0 flex h-full w-full content-center items-center bg-black/70 text-sm"
           onClick={(e) => {
             ChecksForClicksOutside(e);
           }}
         >
-          <div className="bg-white rounded ml-auto mr-auto w-96">
-            <div className="p-4 bg-gray-100 border-b flex rounded-t">
+          <div className="mx-auto w-96 rounded bg-white">
+            <div className="flex rounded-t border-b bg-gray-100 p-4">
               <p className="flex-1 font-semibold">Add a Column</p>
               <button
                 onClick={() => {
                   updateShowModal(false);
                 }}
               >
-                <XIcon className="ml-4 text-gray-500 h-4 w-4 flex"></XIcon>
+                <XIcon className="ml-4 flex h-4 w-4 text-gray-500"></XIcon>
               </button>
             </div>
             <div className="flex flex-col gap-2 p-4">
@@ -59,16 +59,16 @@ export const AddAColumnModal: React.FC<AddAColumnModalProps> = ({
               <input
                 type="text"
                 placeholder=""
-                className="border p-2 rounded"
+                className="rounded border p-2"
                 value={text}
                 onChange={(e) => {
                   handleOnChange(e);
                 }}
               />
               <button
-                className={`border-1 text-sm w-fit ${
+                className={`w-fit text-sm ${
                   text ? "bg-green-500" : "bg-green-200"
-                } text-white py-1 px-4 rounded`}
+                } rounded py-1 px-4 text-white`}
                 onClick={() => {
                   handleOnSubmit();
                 }}

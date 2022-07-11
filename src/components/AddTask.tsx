@@ -44,21 +44,21 @@ export const AddTask: React.FC<AddTaskProps> = ({
         <textarea
           value={text}
           onChange={(e) => handleOnChange(e)}
-          className="w-full text-sm p-2"
+          className="w-full p-2 text-sm"
         ></textarea>
         <div className="flex gap-2">
           <button
             onClick={() => {
               handleOnSubmit();
             }}
-            className={`border-1 text-sm flex-1 ${
+            className={`flex-1 text-sm ${
               text ? "bg-green-500" : "bg-green-200"
-            } text-white py-1 px-4 rounded`}
+            } rounded py-1 px-4 text-white`}
           >
             Add
           </button>
           <button
-            className="border-1 text-sm flex-1 bg-gray-200 py-1 px-4 rounded"
+            className="flex-1 rounded bg-gray-200 py-1 px-4 text-sm"
             onClick={() => {
               setText("");
               displayNone();
