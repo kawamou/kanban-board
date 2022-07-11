@@ -19,13 +19,13 @@ export const useTaskGroups = (): [
   const updateTaskGroups = useCallback(
     (name: string) => {
       setTaskGroups((current) => {
-        const newTaskGroups = {
+        const newTaskGroup = {
           key: uuidv4(),
           groupName: name,
           contents: "",
           type: ItemTypes.column,
         };
-        return [...(current ?? []), newTaskGroups];
+        return [...(current ?? []), newTaskGroup];
       });
     },
     [taskGroups, setTaskGroups]
@@ -38,8 +38,8 @@ export const useTaskGroups = (): [
         const newTaskGroups = current.filter((_, index) => index !== indexI);
         newTaskGroups.splice(indexJ, 0, { ...current[indexI] });
         alignTasks(
-          newTaskGroups.map((taskGroups) => {
-            return taskGroups.groupName;
+          newTaskGroups.map((taskGroup) => {
+            return taskGroup.groupName;
           })
         );
         return [...newTaskGroups];
