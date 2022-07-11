@@ -1,10 +1,10 @@
 import { ItemTypes } from "./itemTypes";
 
-export type Item = {
+export type DraggableItem = {
   key: string;
   groupName: string;
-  note: string;
+  contents: string;
   type: ItemTypes;
 };
 
-export type ItemWithIndex = Item & { index: number };
+export type DraggableItemWithIndex = DraggableItem & { index: number };

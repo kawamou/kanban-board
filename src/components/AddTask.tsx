@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { Item } from "../item";
+import { DraggableItem } from "../item";
 import { ItemTypes } from "../itemTypes";
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-// https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
-export const AddTask = (props: {
+type AddTaskProps = {
   displayNone: () => void;
-  hooks2: (arg: Item, index: number) => void;
+  updateTasks: (arg: DraggableItem, index: number) => void;
   groupName: string;
   index: number;
+};
+
+// https://qiita.com/akifumii/items/ec9fdb9dd7d649c2f3dc#%E9%96%A2%E6%95%B0%E7%B5%8C%E7%94%B1
+export const AddTask: React.FC<AddTaskProps> = ({
+  displayNone,
+  updateTasks,
+  groupName,
+  index,
 }) => {
   const [text, setText] = useState("");
 
@@ -18,17 +25,17 @@ export const AddTask = (props: {
 
   const handleOnSubmit = () => {
     if (!text) return;
-    props.hooks2(
+    updateTasks(
       {
         key: uuidv4(),
-        groupName: props.groupName,
-        note: text,
+        groupName: groupName,
+        contents: text,
         type: ItemTypes.card,
       },
-      props.index
+      index
     );
     setText("");
-    props.displayNone();
+    displayNone();
   };
 
   return (
@@ -37,24 +44,24 @@ export const AddTask = (props: {
         <textarea
           value={text}
           onChange={(e) => handleOnChange(e)}
-          className="w-full text-sm p-2"
+          className="w-full p-2 text-sm"
         ></textarea>
         <div className="flex gap-2">
           <button
             onClick={() => {
               handleOnSubmit();
             }}
-            className={`border-1 text-sm flex-1 ${
+            className={`flex-1 text-sm ${
               text ? "bg-green-500" : "bg-green-200"
-            } text-white py-1 px-4 rounded`}
+            } rounded py-1 px-4 text-white`}
           >
             Add
           </button>
           <button
-            className="border-1 text-sm flex-1 bg-gray-200 py-1 px-4 rounded"
+            className="flex-1 rounded bg-gray-200 py-1 px-4 text-sm"
             onClick={() => {
               setText("");
-              props.displayNone();
+              displayNone();
             }}
           >
             Cancel

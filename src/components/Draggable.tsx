@@ -1,28 +1,28 @@
 import { FC } from "react";
-import { Item, ItemWithIndex } from "../item";
+import { DraggableItem, DraggableItemWithIndex } from "../item";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 
 export const ItemType = ["item" as const];
 
-type Props = {
-  item: Item;
+type DraggableProps = {
+  item: DraggableItem;
   index: number;
-  move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
+  swapItems: (dragIndex: number, hoverIndex: number, groupName: string) => void;
   children: React.ReactNode;
 };
 
-export const Draggable: FC<Props> = ({
-  item: item,
+export const Draggable: FC<DraggableProps> = ({
+  item,
   index,
-  move: move,
+  swapItems,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: item.type,
-    hover(dragItem: ItemWithIndex, monitor) {
+    hover(dragItem: DraggableItemWithIndex, monitor) {
       if (!ref.current) return;
 
       const dragIndex = dragItem.index;
@@ -43,7 +43,7 @@ export const Draggable: FC<Props> = ({
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY * 1.5) return;
       }
 
-      move(dragIndex, hoverIndex, item.groupName);
+      swapItems(dragIndex, hoverIndex, item.groupName);
 
       dragItem.index = hoverIndex;
       dragItem.groupName = item.groupName;

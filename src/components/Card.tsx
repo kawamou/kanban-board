@@ -1,21 +1,57 @@
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
-import type { FC } from "react";
-import { Item } from "../item";
+import { FC, useState } from "react";
+import { DraggableItem } from "../item";
 import { MenuAlt2Icon } from "@heroicons/react/outline";
 
 type CardProps = {
-  task: Item;
-  index: number;
+  task: DraggableItem;
+  deleteTasks: (target: DraggableItem) => void;
 };
 
-export const Card: FC<CardProps> = (props: CardProps) => {
+export const Card: FC<CardProps> = ({ task, deleteTasks }) => {
+  const [show, setShow] = useState<boolean>(false);
+
   return (
-    <div className="cursor-move flex items-start content-start rounded-md border-x border-y boder-t border-b bg-white p-4">
-      <MenuAlt2Icon className="w-4 h-4" />
-      <div className="flex-1 text-sm pl-4 pr-4">{props.task.note}</div>
-      <button className="">
-        <DotsHorizontalIcon className="w-4 h-4" />
-      </button>
-    </div>
+    <>
+      <div className="flex cursor-move content-start items-start rounded-md border bg-white p-4">
+        <MenuAlt2Icon className="h-4 w-4" />
+        <div className="flex-1 px-4 text-sm">{task.contents}</div>
+
+        <button
+          className=""
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          <DotsHorizontalIcon className="h-4 w-4" />
+          {show ? (
+            <div className="absolute z-50 list-none rounded border bg-white text-left text-sm">
+              <ul className="">
+                <li className="py-1 px-4 hover:bg-gray-100">
+                  <div
+                    onClick={() => {
+                      return;
+                    }}
+                  >
+                    Edit
+                  </div>
+                </li>
+                <li className="py-1 px-4 hover:bg-gray-100">
+                  <div
+                    onClick={() => {
+                      deleteTasks(task);
+                    }}
+                  >
+                    Delete
+                  </div>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
+        </button>
+      </div>
+    </>
   );
 };

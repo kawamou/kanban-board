@@ -1,85 +1,92 @@
 import { DotsHorizontalIcon, PlusIcon } from "@heroicons/react/outline";
-import { useCallback, useEffect, useState } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { useState } from "react";
+import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { AddTask } from "./AddTask";
-import { Item, ItemWithIndex } from "../item";
+import { DraggableItem, DraggableItemWithIndex } from "../item";
 import { Draggable } from "./Draggable";
 import { ItemTypes } from "../itemTypes";
 
 type ColumnProps = {
-  item: Item;
+  columnName: string;
   firstIndex: number;
-  tasks: Item[];
-  updateTasks: (newTask: Item, index: number) => void;
-  move: (dragIndex: number, hoverIndex: number, groupName: string) => void;
+  tasks: DraggableItem[];
+  updateTasks: (newTask: DraggableItem, index: number) => void;
+  deleteTasks: (target: DraggableItem) => void;
+  swapTasks: (dragIndex: number, hoverIndex: number, groupName: string) => void;
 };
 
-export const Column = (props: ColumnProps) => {
+export const Column: React.FC<ColumnProps> = ({
+  columnName,
+  firstIndex,
+  tasks,
+  updateTasks,
+  deleteTasks,
+  swapTasks,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const displayNone = (): void => setIsOpen(false);
 
   const [, ref] = useDrop({
     accept: ItemTypes.card, // 渡せるようにする
-    hover(dragItem: ItemWithIndex) {
+    hover(dragItem: DraggableItemWithIndex) {
       const dragIndex = dragItem.index;
-      if (dragItem.groupName === props.item.groupName) return;
+      if (dragItem.groupName === columnName) return;
       const targetIndex =
-        dragIndex < props.firstIndex
+        dragIndex < firstIndex
           ? // forward
-            props.firstIndex + props.tasks.length - 1
+            firstIndex + tasks.length - 1
           : // backward
-            props.firstIndex + props.tasks.length;
-      props.move(dragIndex, targetIndex, props.item.groupName);
+            firstIndex + tasks.length;
+      swapTasks(dragIndex, targetIndex, columnName);
       dragItem.index = targetIndex;
-      dragItem.groupName = props.item.groupName;
+      dragItem.groupName = columnName;
     },
   });
 
   return (
-    <div className="rounded p-2 h-[90%] bg-gray-100 border-x border-y boder-t border-b w-[335px]">
-      <div className="flex items-center m-2">
-        <div className="rounded-full w-6 h-6 text-center bg-slate-200">
-          {props.tasks.length}
+    <div className="h-[90%] w-[335px] rounded border bg-gray-100 p-2">
+      <div className="m-2 flex items-center">
+        <div className="h-6 w-6 rounded-full bg-slate-200 text-center">
+          {tasks.length}
         </div>
-        <span className="flex-1 ml-2">{props.item.groupName}</span>
+        <span className="ml-2 flex-1">{columnName}</span>
         <button
           className=""
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         >
-          <PlusIcon className="w-4 h-4"></PlusIcon>
+          <PlusIcon className="h-4 w-4"></PlusIcon>
         </button>
         <button className="">
-          <DotsHorizontalIcon className="w-4 h-4 ml-2"></DotsHorizontalIcon>
+          <DotsHorizontalIcon className="ml-2 h-4 w-4"></DotsHorizontalIcon>
         </button>
       </div>
-      {/* refの位置が重要。ulだと存在しなかった */}
-      <div className="overflow-y-auto h-5/6" ref={ref}>
-        <div className="ml-2 mr-2 mt-2 mb-4">
+      <div className="h-5/6 overflow-y-auto" ref={ref}>
+        <div className="mx-2 mt-2 mb-4">
           {isOpen ? (
             <AddTask
               displayNone={displayNone}
-              hooks2={props.updateTasks}
-              groupName={props.item.groupName}
-              index={props.firstIndex + props.tasks.length}
+              updateTasks={updateTasks}
+              groupName={columnName}
+              index={firstIndex + tasks.length}
             />
           ) : (
             <></>
           )}
         </div>
         <ul className="">
-          {props.tasks?.map((task, index) => {
+          {tasks?.map((task, index) => {
             return (
               <li key={task.key} className="m-2">
                 <Draggable
                   item={task}
-                  index={props.firstIndex + index}
-                  move={props.move}
+                  index={firstIndex + index}
+                  swapItems={swapTasks}
                 >
-                  <Card task={task} index={index}></Card>
+                  <Card task={task} deleteTasks={deleteTasks}></Card>
                 </Draggable>
               </li>
             );
